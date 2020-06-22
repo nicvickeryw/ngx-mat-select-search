@@ -283,7 +283,11 @@ export class MatSelectSearchComponent implements OnInit, OnDestroy, AfterViewIni
       .subscribe(() => {
         if (this.matSelect._keyManager) {
           this.matSelect._keyManager.change.pipe(takeUntil(this._onDestroy))
-            .subscribe(() => this.adjustScrollTopToFitActiveOptionIntoView());
+            .subscribe(() => {
+              if (!this.disableScrollToActiveOnOptionsChanged) {
+                this.adjustScrollTopToFitActiveOptionIntoView();
+              }
+            });
         } else {
           console.log('_keyManager was not initialized.');
         }
